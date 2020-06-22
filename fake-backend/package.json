@@ -1,0 +1,14 @@
+{
+  "name": "fake-backend",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001"
+  },
+  "author": "",
+  "license": "ISC"
+}
