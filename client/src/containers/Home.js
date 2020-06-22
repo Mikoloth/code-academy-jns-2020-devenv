@@ -15,6 +15,9 @@ function Home(props) {
         <li>
           <Link to="/forms">Forms</Link>
         </li>
+        <li>
+          <Link to="/users">Users</Link>
+        </li>
       </ol>
     </div>
   );

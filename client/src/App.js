@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./containers/Home";
 import StylingSamples from "./containers/StylingSamples/StylingSamples";
 import FormSamples from "./containers/FormSamples/FormSamples";
+import Users from "./containers/Users/Users";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path="/forms">
             <FormSamples />
+          </Route>
+          <Route path="/users">
+            <Users />
           </Route>
         </Switch>
       </Router>
