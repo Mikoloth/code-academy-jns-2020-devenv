@@ -18,6 +18,9 @@ function Home(props) {
         <li>
           <Link to="/users">Users</Link>
         </li>
+        <li>
+          <Link to="/graphs">Graphs</Link>
+        </li>
       </ol>
     </div>
   );

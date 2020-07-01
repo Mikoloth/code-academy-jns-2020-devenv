@@ -1,7 +1,7 @@
 import userReducer from "./userReducer";
 
-import store from "../../store";
+import { injectReducer } from "redux-injector";
 
-store.injectReducer("userStore", userReducer);
+injectReducer("userStore", userReducer);
 
 export { default } from "./Users";

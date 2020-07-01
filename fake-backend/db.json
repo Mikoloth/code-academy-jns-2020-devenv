@@ -7,16 +7,28 @@
       "password": "admin"
     },
     {
-      "name": "Ville",
-      "email": "ville@example.com",
-      "password": "ville",
-      "id": 2
+      "id": 2,
+      "name": "mikko",
+      "email": "admin@example.com",
+      "password": "admin"
     },
     {
-      "name": "Matti",
-      "email": "matti@example.com",
-      "password": "matti",
-      "id": 3
+      "id": 3,
+      "name": "timo",
+      "email": "admin@example.com",
+      "password": "admin"
+    },
+    {
+      "id": 4,
+      "name": "jussi",
+      "email": "admin@example.com",
+      "password": "admin"
+    },
+    {
+      "id": 5,
+      "name": "kalle",
+      "email": "admin@example.com",
+      "password": "admin"
     }
   ]
 }

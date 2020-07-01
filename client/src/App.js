@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./containers/Home";
 import StylingSamples from "./containers/StylingSamples/StylingSamples";
 import FormSamples from "./containers/FormSamples/FormSamples";
-import Users from "./containers/Users/Users";
+import Users from "./containers/Users";
+import GraphsSamples from "./containers/GraphsSamples/GraphsSamples";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/users">
             <Users />
+          </Route>
+          <Route path="/graphs">
+            <GraphsSamples />
           </Route>
         </Switch>
       </Router>
