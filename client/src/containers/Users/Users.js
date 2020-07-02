@@ -24,9 +24,11 @@ const Users = (props) => {
 
 
 
-  useEffect(() => getUsers(), [getUsers]);
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
-  const onDelete = useCallback((user) => removeUser(user.id), [removeUser]);
+  const onDelete = useCallback((user) => removeUser(user._id), [removeUser]);
 
 
 
@@ -38,7 +40,7 @@ const Users = (props) => {
 
         Header: "#",
 
-        accessor: "id",
+        accessor: "_id",
 
       },
 

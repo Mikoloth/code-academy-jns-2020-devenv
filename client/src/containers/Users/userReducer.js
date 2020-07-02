@@ -18,7 +18,7 @@ function userReducer(store = initialState, action) {
 
         ...store,
 
-        users: store.users.filter((user) => user.id !== action.payload.userId),
+        users: store.users.filter((user) => user._id !== action.payload.userId),
 
       };
 
