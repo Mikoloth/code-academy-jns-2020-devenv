@@ -1,21 +1,21 @@
-const { getUsers, addUser, delUser } = require("./UserRepository");
-
-const readUsers = (req, res) => {
-    getUsers((users) => res.json(users));
-};
+const { addUser, getUsers, removeUser } = require("./UserRepository");
 
 const createUser = (req, res) => {
-    const newUser = req.body;
-    addUser(newUser, (addedUser) => res.json(addedUser));
+  const newUser = req.body;
+  addUser(newUser, (addedUser) => res.json(addedUser));
+};
+
+const readUsers = (req, res) => {
+  getUsers((users) => res.json(users));
 };
 
 const deleteUser = (req, res) => {
-    const userId = req.params.userId;
-    delUser(userId, (delUser) => res.end());
+  const userId = req.params.userId;
+  removeUser(userId, () => res.end());
 };
 
 module.exports = {
-    readUsers,
-    createUser,
-    deleteUser,
+  createUser,
+  readUsers,
+  deleteUser,
 };

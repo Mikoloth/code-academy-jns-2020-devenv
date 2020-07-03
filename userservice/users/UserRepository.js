@@ -1,51 +1,32 @@
-const { MongoClient, ObjectId } = require("mongodb");
-const mongoDbUrl = "mongodb://root:example@mongo:27017/";
-
-const getUsers = (callback, query = {}) => {
-    MongoClient.connect(mongoDbUrl, (err, dbconn) => {
-        if (err) throw err;
-        const dbo = dbconn.db("userservice");
-        const collection = dbo.collection("users");
-        collection.find(query).toArray((err, result) => {
-            if (err) throw err;
-            callback(result);
-            dbconn.close();
-        });
-    });
-};
+const { ObjectId } = require("mongodb");
+const { getCollection } = require("../db");
 
 const addUser = (newUser, callback) => {
-    MongoClient.connect(mongoDbUrl, (err, dbconn) => {
-        if (err) throw err;
-        const dbo = dbconn.db("userservice");
-        const collection = dbo.collection("users");
-        collection.insertOne(newUser, (err, dbRes) => {
-            if (err) throw err;
-            callback(dbRes.ops[0]);
-            dbconn.close();
-        });
-    });
+  const collection = getCollection("userservice", "users");
+  collection.insertOne(newUser, (err, dbRes) => {
+    if (err) throw err;
+    callback(dbRes.ops[0]);
+  });
 };
+const getUsers = (callback) => {
+  const collection = getCollection("userservice", "users");
+  collection.find({}).toArray((err, result) => {
+    if (err) throw err;
+    callback(result);
+  });
+};
+const removeUser = (userId, callback) => {
+  const collection = getCollection("userservice", "users");
 
-const delUser = (userId, callback) => {
-    MongoClient.connect(mongoDbUrl, (err, dbconn) => {
-        if (err) throw err;
-        const dbo = dbconn.db("userservice");
-        const collection = dbo.collection("users");
-
-        const deleteQuery = { _id: ObjectId(userId) };
-        console.log({ deleteQuery });
-        collection.deleteOne(deleteQuery, (err, dbRes) => {
-            if (err) throw err;
-            console.log({ dbRes });
-            callback();
-            dbconn.close();
-        });
-    });
+  const deleteQuery = { _id: ObjectId(userId) };
+  collection.deleteOne(deleteQuery, (err, dbRes) => {
+    if (err) throw err;
+    callback();
+  });
 };
 
 module.exports = {
-    getUsers,
-    addUser,
-    delUser,
+  addUser,
+  getUsers,
+  removeUser,
 };
