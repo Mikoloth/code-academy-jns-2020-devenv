@@ -1,5 +1,4 @@
 const express = require("express");
-const { MongoClient, ObjectId } = require("mongodb");
 
 const {
   readFruits,
@@ -8,14 +7,14 @@ const {
 } = require("./fruits/FruitController");
 
 const {
-  readUsers,
   createUser,
+  readUsers,
   deleteUser,
+  loginUser,
 } = require("./users/UserController");
 
 const app = express();
 const port = 3000;
-const mongoDbUrl = "mongodb://root:example@mongo:27017/";
 
 app.use(express.json());
 
@@ -44,34 +43,7 @@ app.get("/redFruits", readRedFruits);
 app.post("/users", createUser);
 app.get("/users", readUsers);
 app.delete("/users/:userId", deleteUser);
-
-/*app.get("/users", (req, res) => {
-  MongoClient.connect(mongoDbUrl, (err, dbconn) => {
-    if (err) throw err;
-    const dbo = dbconn.db("userservice");
-    const collection = dbo.collection("users");
-    collection.find({}).toArray((err, result) => {
-      if (err) throw err;
-      res.json(result);
-      dbconn.close();
-    });
-  });
-});
-
-app.post("/users", (req, res) => {
-  const newUser = req.body;
-  MongoClient.connect(mongoDbUrl, (err, dbconn) => {
-    if (err) throw err;
-    const dbo = dbconn.db("userservice");
-    const collection = dbo.collection("users");
-    collection.insertOne(newUser, (err, dbRes) => {
-      if (err) throw err;
-      res.json(dbRes.ops[0]);
-      dbconn.close();
-    });
-  });
-});*/
-
+app.post("/login", loginUser);
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

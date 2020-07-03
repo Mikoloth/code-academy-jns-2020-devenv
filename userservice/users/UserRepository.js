@@ -8,9 +8,9 @@ const addUser = (newUser, callback) => {
     callback(dbRes.ops[0]);
   });
 };
-const getUsers = (callback) => {
+const getUsers = (callback, query = {}) => {
   const collection = getCollection("userservice", "users");
-  collection.find({}).toArray((err, result) => {
+  collection.find(query).toArray((err, result) => {
     if (err) throw err;
     callback(result);
   });
