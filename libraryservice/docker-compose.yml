@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  libraryservice:
+    image: maven:3-jdk-14
+    working_dir: /usr/src/mymaven
+    volumes:
+      - .:/usr/src/mymaven
+    ports:
+      - 8080:8080
