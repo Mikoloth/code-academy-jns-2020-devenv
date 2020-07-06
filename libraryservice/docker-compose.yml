@@ -7,3 +7,15 @@ services:
       - .:/usr/src/mymaven
     ports:
       - 8080:8080
+    depends_on:
+      - postgres
+      - adminer
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: library
+  adminer:
+    image: adminer
+    ports:
+      - 8082:8080
