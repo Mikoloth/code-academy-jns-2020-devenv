@@ -1,4 +1,7 @@
-package com.example.demo;
+package com.example.controllers;
+
+import com.example.models.Book;
+import com.example.repositories.BookRepository;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BooksController {
-    BookRepository repository;
+    private final BookRepository repository;
 
     BooksController(BookRepository repository) {
         this.repository = repository;
