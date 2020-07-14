@@ -21,6 +21,9 @@ function Home(props) {
         <li>
           <Link to="/graphs">Graphs</Link>
         </li>
+        <li>
+          <Link to="/books">Books</Link>
+        </li>
       </ol>
     </div>
   );
