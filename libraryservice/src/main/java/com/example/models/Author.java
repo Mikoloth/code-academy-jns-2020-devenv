@@ -1,22 +1,30 @@
 package com.example.models;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Author {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String name;
-    private Integer birthYear;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    private Set<Book> books;
 
     Author() {
     }
 
-    Author(String name, Integer birthYear) {
+    Author(String name) {
         this.name = name;
-        this.birthYear = birthYear;
     }
 
     public Long getId() {
@@ -27,11 +35,11 @@ public class Author {
         return name;
     }
 
-    public Integer getbirthYear() {
-        return birthYear;
+    public Set<Book> getBooks() {
+        return books;
     }
 
     public String toString() {
-        return "" + id + ": " + name + "(" + birthYear + ")";
+        return "" + id + ": " + name;
     }
 }
