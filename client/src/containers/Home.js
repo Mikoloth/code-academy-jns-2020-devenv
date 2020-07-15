@@ -24,6 +24,9 @@ function Home(props) {
         <li>
           <Link to="/books">Books</Link>
         </li>
+        <li>
+          <Link to="/authors">Authors</Link>
+        </li>
       </ol>
     </div>
   );
