@@ -12,11 +12,11 @@ services:
       - adminer
   postgres:
     image: postgres:12
+    ports:
+      - 5433:5432
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: library
-    volumes:
-      - ./db_data:/var/lib/postgresql/data
   adminer:
     image: adminer
     ports:

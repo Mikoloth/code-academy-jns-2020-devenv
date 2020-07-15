@@ -7,28 +7,34 @@
       "password": "admin"
     },
     {
-      "id": 2,
-      "name": "mikko",
-      "email": "admin@example.com",
-      "password": "admin"
+      "name": "Ville",
+      "email": "ville@example.com",
+      "password": "ville",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "timo",
-      "email": "admin@example.com",
-      "password": "admin"
+      "name": "Matti",
+      "email": "matti@example.com",
+      "password": "matti",
+      "id": 3
     },
     {
-      "id": 4,
-      "name": "jussi",
-      "email": "admin@example.com",
-      "password": "admin"
+      "name": "Martti",
+      "email": "martti@example.com",
+      "password": "martti",
+      "id": 4
     },
     {
-      "id": 5,
-      "name": "kalle",
-      "email": "admin@example.com",
-      "password": "admin"
+      "name": "Maija",
+      "email": "maija@example.com",
+      "password": "maija",
+      "id": 5
+    },
+    {
+      "name": "Marko",
+      "email": "marko@example.com",
+      "password": "marko",
+      "id": 6
     }
   ]
 }

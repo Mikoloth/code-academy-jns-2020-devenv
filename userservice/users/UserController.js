@@ -2,9 +2,17 @@ const { addUser, getUsers, removeUser } = require("./UserRepository");
 const bcrypt = require("bcryptjs");
 
 const createUser = (req, res) => {
-  const newUser = req.body;
-  const hash = bcrypt.hashSync(newUser.password);
-  addUser({ ...newUser, password: hash }, (addedUser) => res.json(addedUser));
+  const { role } = req.signedCookies.loginStatus || {};
+  if (role === "ADMIN") {
+    const newUser = req.body;
+    const hash = bcrypt.hashSync(newUser.password);
+    addUser({ ...newUser, password: hash }, (addedUser) => {
+      const { password, ...safeUser } = addedUser;
+      res.json(safeUser);
+    });
+  } else {
+    res.status(401).end("Unauthorized!!!");
+  }
 };
 
 const readUsers = (req, res) => {
@@ -19,8 +27,14 @@ const readUsers = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-  const userId = req.params.userId;
-  removeUser(userId, () => res.end());
+  const userIdToRemove = req.params.userId;
+
+  const { userId, role } = req.signedCookies.loginStatus || {};
+  if ((role === "ADMIN", userId !== userIdToRemove)) {
+    removeUser(userIdToRemove, () => res.end());
+  } else {
+    res.status(401).end("Unauthorized!!!");
+  }
 };
 
 const loginUser = (req, res) => {
@@ -33,6 +47,11 @@ const loginUser = (req, res) => {
       } else {
         const user = users[0];
         if (bcrypt.compareSync(password, user.password)) {
+          res.cookie(
+            "loginStatus",
+            { userId: user._id, role: "ADMIN" },
+            { signed: true, httpOnly: true }
+          );
           res.end();
         } else {
           res.status(401).send("Username or password does not match!");

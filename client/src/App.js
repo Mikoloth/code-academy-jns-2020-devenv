@@ -7,7 +7,6 @@ import FormSamples from "./containers/FormSamples/FormSamples";
 import Users from "./containers/Users";
 import GraphsSamples from "./containers/GraphsSamples/GraphsSamples";
 import Books from "./containers/Books";
-import Authors from "./containers/Authors";
 
 function App() {
   return (
@@ -26,14 +25,11 @@ function App() {
           <Route path="/users">
             <Users />
           </Route>
-          <Route path="/graphs">
-            <GraphsSamples />
-          </Route>
           <Route path="/books">
             <Books />
           </Route>
-          <Route path="/authors">
-            <Authors />
+          <Route path="/graphs">
+            <GraphsSamples />
           </Route>
         </Switch>
       </Router>
