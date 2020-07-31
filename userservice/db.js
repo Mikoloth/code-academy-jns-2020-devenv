@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
-const mongoDbUrl = "mongodb://root:example@mongo:27017/";
+const { MONGO_HOST, MONGO_PORT = 27017, MONGO_USER, MONGO_PASS } = process.env;
+const mongoDbUrl = `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}:${MONGO_PORT}/`;
 
 const connection = {};
 

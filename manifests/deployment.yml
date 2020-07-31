@@ -1,19 +1,71 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "codeacademy2020cluster-be43"
+  name: "codeacademy2020userservice"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "codeacademy2020cluster-be43"
+      app: "codeacademy2020userservice"
   template:
     metadata:
       labels:
-        app: "codeacademy2020cluster-be43"
+        app: "codeacademy2020userservice"
     spec:
       containers:
-        - name: "codeacademy2020cluster-be43"
-          image: "codeacademy2020registerantti.azurecr.io/codeacademy2020cluster"
+        - name: "codeacademy2020userservice"
+          image: "codeacademy2020registerantti.azurecr.io/codeacademy2020userservice"
+          env:
+            - name: MONGO_HOST
+              value: "codeacademy2020mongo"
+            - name: MONGO_USER
+              value: "root"
+            - name: MONGO_PASS
+              value: "example"
           ports:
-          - containerPort: 3000
+            - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "codeacademy2020mongo"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "codeacademy2020mongo"
+  template:
+    metadata:
+      labels:
+        app: "codeacademy2020mongo"
+    spec:
+      containers:
+        - name: "codeacademy2020mongo"
+          image: mongo
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "example"
+          ports:
+            - containerPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "codeacademy2020fashionservice"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "codeacademy2020fashionservice"
+  template:
+    metadata:
+      labels:
+        app: "codeacademy2020fashionservice"
+    spec:
+      containers:
+        - name: "codeacademy2020fashionservice"
+          image: "codeacademy2020registerantti.azurecr.io/codeacademy2020fashionservice"
+          ports:
+            - containerPort: 8000

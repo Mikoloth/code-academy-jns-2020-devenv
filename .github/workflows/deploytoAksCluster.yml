@@ -7,15 +7,17 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
-        login-server: codeacademy2020registerantti.azurecr.io
+        login-server: codeacademy2020registermikko.azurecr.io
         username: ${{ secrets.acr_codeacademy2020registerantti_username }}
         password: ${{ secrets.acr_codeacademy2020registerantti_password }}
     
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/userservice" -f  "userservice/Dockerfile" -t codeacademy2020registerantti.azurecr.io/codeacademy2020cluster:${{ github.sha }}
-        docker push codeacademy2020registerantti.azurecr.io/codeacademy2020cluster:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/userservice" -f  "userservice/Dockerfile" -t codeacademy2020registerantti.azurecr.io/codeacademy2020userservice:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/fashionservice" -f  "fashionservice/Dockerfile" -t codeacademy2020registerantti.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+        docker push codeacademy2020registermikko.azurecr.io/codeacademy2020userservice:${{ github.sha }}
+        docker push codeacademy2020registermikko.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -38,13 +40,14 @@ jobs:
         container-registry-password: ${{ secrets.acr_codeacademy2020registerantti_password }}
         secret-name: codeacademy2dockerauth
        
-    - uses: azure/k8s-deploy@v1
+- uses: azure/k8s-deploy@v1
       with:
         namespace: codeacademy2020cluster7bec
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
         images: |
-          codeacademy2020registerantti.azurecr.io/codeacademy2020cluster:${{ github.sha }}
+            codeacademy2020registerantti.azurecr.io/codeacademy2020userservice:${{ github.sha }}
+            codeacademy2020registerantti.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
         imagepullsecrets: |
           codeacademy2dockerauth
