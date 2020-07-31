@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "codeacademy2020cluster-be43"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "codeacademy2020cluster-be43"
+  template:
+    metadata:
+      labels:
+        app: "codeacademy2020cluster-be43"
+    spec:
+      containers:
+        - name: "codeacademy2020cluster-be43"
+          image: "codeacademy2020registerantti.azurecr.io/codeacademy2020cluster"
+          ports:
+          - containerPort: 3000

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "codeacademy2020cluster-be43"
+    labels:
+        app: "codeacademy2020cluster-be43"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: http
+    selector:
+        app: "codeacademy2020cluster-be43"
