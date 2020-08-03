@@ -14,10 +14,12 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/userservice" -f  "userservice/Dockerfile" -t codeacademy2020registerantti.azurecr.io/codeacademy2020userservice:${{ github.sha }}
-        docker build "$GITHUB_WORKSPACE/fashionservice" -f  "fashionservice/Dockerfile" -t codeacademy2020registerantti.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/userservice" -f  "userservice/Dockerfile" -t codeacademy2020registermikko.azurecr.io/codeacademy2020userservice:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/fashionservice" -f  "fashionservice/Dockerfile" -t codeacademy2020registermikko.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/libraryservice" -f  "libraryservice/Dockerfile" -t codeacademy2020registermikko.azurecr.io/codeacademy2020libraryservice:${{ github.sha }}
         docker push codeacademy2020registermikko.azurecr.io/codeacademy2020userservice:${{ github.sha }}
         docker push codeacademy2020registermikko.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+        docker push codeacademy2020registermikko.azurecr.io/codeacademy2020libraryservice:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -36,8 +38,8 @@ jobs:
       with:
         namespace: codeacademy2020cluster7bec
         container-registry-url: codeacademy2020registerantti.azurecr.io
-        container-registry-username: ${{ secrets.acr_codeacademy2020registerantti_username }}
-        container-registry-password: ${{ secrets.acr_codeacademy2020registerantti_password }}
+        container-registry-username: ${{ secrets.acr_codeacademy2020registermikko_username }}
+        container-registry-password: ${{ secrets.acr_codeacademy2020registermikko_password }}
         secret-name: codeacademy2dockerauth
        
 - uses: azure/k8s-deploy@v1
@@ -47,7 +49,8 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
         images: |
-            codeacademy2020registerantti.azurecr.io/codeacademy2020userservice:${{ github.sha }}
-            codeacademy2020registerantti.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+            codeacademy2020registermikko.azurecr.io/codeacademy2020userservice:${{ github.sha }}
+            codeacademy2020registermikko.azurecr.io/codeacademy2020fashionservice:${{ github.sha }}
+            codeacademy2020registermikko.azurecr.io/codeacademy2020libraryservice:${{ github.sha }}
         imagepullsecrets: |
           codeacademy2dockerauth

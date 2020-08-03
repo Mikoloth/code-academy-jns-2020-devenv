@@ -1,5 +1,9 @@
 version: "3.8"
 services:
+  client:
+    build: ./client
+    ports:
+      - 80:80
   userservice:
     build: ./userservice
     environment:
@@ -8,7 +12,8 @@ services:
       MONGO_PASS: example
     ports:
       - 3001:3000
-    command: ["npm", "run-script", "start-dev"]
+    depends_on:
+      - mongo
   fashionservice:
     build: ./fashionservice
     ports:
@@ -18,3 +23,22 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+  libraryservice:
+    build: ./libraryservice
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASS: password
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: library
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: library
