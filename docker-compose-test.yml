@@ -2,10 +2,16 @@ version: "3.8"
 services:
   client:
     build: ./client
+    restart: always
     ports:
       - 80:80
+    depends_on:
+      - userservice
+      - libraryservice
+      - fashionservice
   userservice:
     build: ./userservice
+    restart: always
     environment:
       MONGO_HOST: mongo
       MONGO_USER: root
@@ -16,15 +22,18 @@ services:
       - mongo
   fashionservice:
     build: ./fashionservice
+    restart: always
     ports:
       - 8000:8000
   mongo:
     image: mongo
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
   libraryservice:
     build: ./libraryservice
+    restart: always
     ports:
       - 8080:8080
     environment:
@@ -37,6 +46,7 @@ services:
       - postgres
   postgres:
     image: postgres:12
+    restart: always
     ports:
       - 5433:5432
     environment:
